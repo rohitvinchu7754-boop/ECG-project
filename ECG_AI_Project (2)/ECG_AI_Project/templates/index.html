@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CardioAI | ECG Signal Analysis</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="brand"><span class="brand-icon">♥</span><span>Cardio<span class="accent">AI</span></span></div>
+    <div class="nav-label">WORKSPACE</div>
+    <a class="nav active" href="/">▦ &nbsp; Dashboard</a>
+    <a class="nav" href="#upload">↥ &nbsp; ECG Analysis</a>
+    <a class="nav" href="#results">⌁ &nbsp; Results</a>
+    <div class="sidebar-bottom">
+      <div class="pulse-line">⌁ ♥ ⌁ ♥ ⌁</div>
+      <small>AI ECG RESEARCH PLATFORM</small>
+      <p>Educational prototype<br>Not for emergency or clinical decisions.</p>
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <div>
+        <div class="eyebrow">CARDIAC SIGNAL INTELLIGENCE</div>
+        <h1>ECG Analysis Dashboard</h1>
+        <p class="subtitle">Explore ECG signals and evaluate a trained research model.</p>
+      </div>
+      <div class="status-pill"><span class="dot"></span> Local workspace</div>
+    </header>
+
+    <section class="welcome">
+      <div>
+        <div class="eyebrow light">AI-POWERED RESEARCH WORKFLOW</div>
+        <h2>Understand the rhythm.<br><span>One signal at a time.</span></h2>
+        <p>Upload a numeric ECG CSV to inspect its waveform and calculate signal statistics.</p>
+      </div>
+      <div class="heart-art" aria-hidden="true">♥<span>⌁</span></div>
+    </section>
+
+    <section class="metric-grid">
+      <article class="metric"><div class="metric-top"><span>Samples analyzed</span><span class="metric-icon">∿</span></div><strong id="sampleMetric">—</strong><small>Points in uploaded signal</small></article>
+      <article class="metric"><div class="metric-top"><span>Mean amplitude</span><span class="metric-icon">μ</span></div><strong id="meanMetric">—</strong><small>Signal average</small></article>
+      <article class="metric"><div class="metric-top"><span>Signal variation</span><span class="metric-icon">σ</span></div><strong id="stdMetric">—</strong><small>Standard deviation</small></article>
+      <article class="metric"><div class="metric-top"><span>AI model</span><span class="metric-icon">✳</span></div><strong id="modelMetric" class="model-word">Not loaded</strong><small>Train model to enable classification</small></article>
+    </section>
+
+    <section class="content-grid">
+      <article class="panel waveform-panel">
+        <div class="panel-heading">
+          <div><h3>ECG waveform</h3><p>Uploaded signal preview</p></div>
+          <span class="tag">LIVE PREVIEW</span>
+        </div>
+        <div class="chart-wrap"><canvas id="ecgChart" aria-label="ECG waveform chart"></canvas></div>
+        <div class="chart-foot"><span><i class="legend-dot"></i> Signal amplitude</span><span id="chartInfo">Awaiting upload</span></div>
+      </article>
+
+      <article class="panel upload-panel" id="upload">
+        <div class="panel-heading"><div><h3>Analyze a signal</h3><p>CSV file · numeric samples</p></div><span class="upload-symbol">↥</span></div>
+        <form id="ecgForm">
+          <label class="dropzone" for="ecgFile">
+            <span class="file-icon">↑</span>
+            <strong id="fileLabel">Choose an ECG CSV file</strong>
+            <span>Click to browse your device</span>
+            <input id="ecgFile" name="ecg_file" type="file" accept=".csv,text/csv" required>
+          </label>
+          <div class="format-note"><span>ⓘ</span> Use one numeric ECG sample per row in the first column. At least 100 samples.</div>
+          <button class="primary-btn" type="submit"><span>Analyze ECG</span><span>→</span></button>
+          <p id="status" class="status" role="status">Ready for a file.</p>
+        </form>
+      </article>
+    </section>
+
+    <section class="panel results-panel" id="results">
+      <div class="panel-heading"><div><h3>Analysis summary</h3><p>Output from the uploaded signal</p></div><span class="tag neutral">RESEARCH ONLY</span></div>
+      <div class="results-grid">
+        <div class="result-block"><span class="result-label">Minimum amplitude</span><strong id="minMetric">—</strong></div>
+        <div class="result-block"><span class="result-label">Maximum amplitude</span><strong id="maxMetric">—</strong></div>
+        <div class="result-block"><span class="result-label">Model prediction</span><strong id="predictionMetric">Not available</strong></div>
+        <div class="result-block"><span class="result-label">Model confidence</span><strong id="confidenceMetric">—</strong></div>
+      </div>
+      <p id="modelNote" class="model-note">No trained model is loaded. Uploading a signal currently computes descriptive statistics only.</p>
+    </section>
+
+    <footer>CardioAI · Student project prototype · Always consult qualified clinicians for medical concerns.</footer>
+  </main>
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
